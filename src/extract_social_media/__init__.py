@@ -5,7 +5,7 @@ import re
 
 __author__ = 'Johannes Ahlmann'
 __email__ = 'johannes@fluquid.com'
-__version__ = '0.1.0'
+__version__ = '0.2.0-dev'
 
 
 # FIXME: a lot wrong with the below
