@@ -6,6 +6,7 @@ include *.in
 include *.ini
 include *.rst
 include *.txt
+include *.md
 
 include LICENSE
 include VERSION
