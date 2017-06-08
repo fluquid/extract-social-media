@@ -53,8 +53,8 @@ def find_links_tree(tree):
     - `<g:plusone href="http://widgetsplus.com/"></g:plusone>`
     - <a class="reference external" href="https://twitter.com/intent/follow?screen_name=NASA">
     """
-    for link in tree.xpath('//*[@href]'):
-        href = link.get('href')
+    for link in tree.xpath('//*[@href or @data-href]'):
+        href = link.get('href') or link.get('data-href')
         if matches_string(href):
             yield href
 

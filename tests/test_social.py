@@ -1,4 +1,5 @@
-from extract_social_media import matches_string  # , find_links_tree
+from extract_social_media import matches_string, find_links_tree
+from lxml import etree
 
 """
 TODO POS:
@@ -164,6 +165,33 @@ def split_lines(lines):
 def test_positives():
     for sample in split_lines(LINK_SAMPLES):
         assert matches_string(sample), (sample, )
+
+
+def test_href():
+    href = etree.HTML("""
+        <a href="http://feeds.feedburner.com/TnsGlobalPressReleases">
+        <fb:like href="http://www.facebook.com/elDiarioEs">
+        <a class="twitter-follow-button" href="https://twitter.com/NASA">
+        <a class="github-button"
+            href="https://github.com/igrigorik/githubarchive.org"
+            data-count-href="/igrigorik/githubarchive.org/stargazers">
+        <div class="fb-page" data-href="https://www.facebook.com/facebook"
+              data-tabs="timeline" data-small-header="false">
+    """)
+    assert len(list(find_links_tree(href))) == 5, href
+
+
+def test_script():
+    # FIXME: need examples for `script` or `data-href`, etc.
+    pass
+
+
+def test_twitter():
+    href = etree.HTML("""
+        <meta name="twitter:site" content="@fluquid_ds">
+        <meta name="twitter:creator" content="@fluquid_ds">
+    """)
+    assert len(list(find_links_tree(href))) == 2, href
 
 
 def not_running_negatives():
