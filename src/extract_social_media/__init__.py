@@ -8,6 +8,9 @@ __email__ = 'johannes@fluquid.com'
 __version__ = '0.1.0'
 
 
+# FIXME: a lot wrong with the below
+# - too permissive
+# - likely too slow
 PREFIX = r'https?://(?:www\.)?'
 SITES = ['twitter.com/', 'youtube.com/',
          '(?:[a-z]{2}\.)?linkedin.com/(?:company/|in/|pub/)',
@@ -27,20 +30,24 @@ SOCIAL_REX = re.compile(PATTERN, flags=re.I)
 
 
 def _from_url(url):  # pragma: no cover
+    """ get list of social media links/handles given a url """
     import requests
     from html_to_etree import parse_html_bytes
-    res = requests.get('https://www.oreilly.com/')
+    res = requests.get(url)
     tree = parse_html_bytes(res.content, res.headers.get('content-type'))
 
-    return list(find_links_tree(tree))
+    return set(find_links_tree(tree))
 
 
 def matches_string(string):
+    """ check if a given string matches known social media url patterns """
     return SOCIAL_REX.match(string)
 
 
 def find_links_tree(tree):
     """
+    find social media links/handles given an lxml etree.
+
     TODO:
     - `<fb:like href="http://www.facebook.com/elDiarioEs"`
     - `<g:plusone href="http://widgetsplus.com/"></g:plusone>`

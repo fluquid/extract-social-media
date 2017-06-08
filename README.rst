@@ -65,14 +65,28 @@ Quickstart
 
    import requests
    from html_to_etree import parse_html_bytes
-   res = requests.get('https://www.oreilly.com/')
+   res = requests.get('https://techcrunch.com/contact/')
    tree = parse_html_bytes(res.content, res.headers.get('content-type'))
 
-   list(find_links_tree(tree))
+   set(find_links_tree(tree))
 
-   ['http://twitter.com/oreillymedia', 'http://fb.co/OReilly',
-    'https://www.linkedin.com/company/oreilly-media',
-    'https://www.youtube.com/user/OreillyMedia', '@OReillyMedia']
+   {'http://pinterest.com/techcrunch/',
+    'http://www.youtube.com/user/techcrunch',
+    'http://www.linkedin.com/company/techcrunch',
+    'https://www.facebook.com/techcrunch',
+    'https://flipboard.com/@techcrunch',
+    'http://instagram.com/techcrunch',
+    'https://plus.google.com/+TechCrunch',
+    'https://instagram.com/techcrunch',
+    'https://twitter.com/techcrunch'}
+
+Caveats
+-------
+
+* currently finds all social media links on a page
+
+  * need to look into finding most relevant links based on link location,
+    link context, company name, etc.
 
 Credits
 -------

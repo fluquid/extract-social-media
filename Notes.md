@@ -7,6 +7,10 @@ Social Notes:
 - "fa fa-instagram", 70
 - "fa fa-youtube", 52
 - "fa fa-google-plus", 98
+- "icon-twitter"
+- "icon-facebook"
+- "icon-linkedin"
+- "icon-youtube-large"
 
 `facebook.com/plugins/like`
 `<script src="https://apis.google.com/js/plusone.js"></script>`
