@@ -120,6 +120,7 @@ https://uk.linkedin.com/in/mihajlopopesku
 http://www.vkontakte.ru/fom.media
 http://www.slideshare.net/fom-media/
 https://www.pinterest.com/globalvoxpopuli/
+http://fb.co/OReilly
 """
 # tumblr, whatsapp, blogspot, PENGYOU, RENREN, KAIXIN 001, TENCENT WEIBO
 # SINA WEIBO, Baidu, WECHAT
@@ -152,6 +153,7 @@ https://www.flickr.com/cameras
 https://www.flickr.com/about
 https://www.flickr.com/explore/
 https://www.flickr.com/jobs
+https://www.xing.com/news/pages/f-a-z-wirtschaft-finanzen-90
 """
 
 

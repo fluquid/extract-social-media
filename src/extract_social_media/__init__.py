@@ -11,7 +11,7 @@ __version__ = '0.1.0'
 PREFIX = r'https?://(?:www\.)?'
 SITES = ['twitter.com/', 'youtube.com/',
          '(?:[a-z]{2}\.)?linkedin.com/(?:company/|in/|pub/)',
-         'github.com/', '(?:[a-z]{2}-[a-z]{2}\.)?facebook.com/',
+         'github.com/', '(?:[a-z]{2}-[a-z]{2}\.)?facebook.com/', 'fb.co',
          'plus\.google.com/', 'pinterest.com/', 'instagram.com/',
          'snapchat.com/', 'flipboard.com/', 'flickr.com',
          'google.com/+', 'weibo.com/', 'periscope.tv/',
@@ -26,6 +26,15 @@ PATTERN = (
 SOCIAL_REX = re.compile(PATTERN, flags=re.I)
 
 
+def _from_url(url):  # pragma: no cover
+    import requests
+    from html_to_etree import parse_html_bytes
+    res = requests.get('https://www.oreilly.com/')
+    tree = parse_html_bytes(res.content, res.headers.get('content-type'))
+
+    return list(find_links_tree(tree))
+
+
 def matches_string(string):
     return SOCIAL_REX.match(string)
 
@@ -37,7 +46,7 @@ def find_links_tree(tree):
     - `<g:plusone href="http://widgetsplus.com/"></g:plusone>`
     - <a class="reference external" href="https://twitter.com/intent/follow?screen_name=NASA">
     """
-    for link in tree.xpath('//.[@href]'):
+    for link in tree.xpath('//*[@href]'):
         href = link.get('href')
         if matches_string(href):
             yield href

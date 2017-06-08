@@ -1,2 +1,4 @@
 # This packages are required to install and run our package.
 lxml
+requests
+html_to_etree

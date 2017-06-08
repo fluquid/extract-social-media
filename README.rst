@@ -8,10 +8,6 @@ Extract Social Media
 .. image:: https://img.shields.io/pypi/pyversions/extract-social-media.svg
         :target: https://pypi.python.org/pypi/extract-social-media
 
-.. image:: https://readthedocs.org/projects/extract-social-media/badge/?version=latest
-        :target: https://readthedocs.org/projects/extract-social-media/?badge=latest
-        :alt: Documentation Status
-
 .. image:: https://img.shields.io/travis/fluquid/extract-social-media.svg
         :target: https://travis-ci.org/fluquid/extract-social-media
 
@@ -23,21 +19,60 @@ Extract Social Media
     :alt: Requirements Status
     :target: https://requires.io/github/fluquid/extract-social-media/requirements/?branch=master
 
-Extract social media links from websites
+Extract social media links from websites.
+
+Many websites reference their facebook, twitter, linkedin, youtube accounts
+and these can be invaluable to gather 360 degree information about a company.
+
+This library allows to extract links or handles for the most commonly used
+international social media networks.
 
 * Free software: MIT license
-* Documentation: https://extract-social-media.readthedocs.org.
 * Python versions: 2.7, 3.4+
 
 Features
 --------
 
-FIXME
+* Extract social media links/handles from html content
+* Attempts to extract links/handles also from widgets, scripts, etc.
+* Supports most widely used social networks
+
+  * facebook
+  * linkedin
+  * twitter
+  * youtube
+  * github
+  * google plus
+  * pinterest
+  * instagram
+  * snapchat
+  * flipboard
+  * flickr
+  * weibo
+  * periscope
+  * telegram
+  * soundcloud
+  * feedburner
+  * vimeo
+  * slideshare
+  * vkontakte
+  * xing
 
 Quickstart
 ----------
 
-FIXME
+.. code:: python
+
+   import requests
+   from html_to_etree import parse_html_bytes
+   res = requests.get('https://www.oreilly.com/')
+   tree = parse_html_bytes(res.content, res.headers.get('content-type'))
+
+   list(find_links_tree(tree))
+
+   ['http://twitter.com/oreillymedia', 'http://fb.co/OReilly',
+    'https://www.linkedin.com/company/oreilly-media',
+    'https://www.youtube.com/user/OreillyMedia', '@OReillyMedia']
 
 Credits
 -------
