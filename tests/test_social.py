@@ -194,6 +194,13 @@ def test_twitter():
     assert len(list(find_links_tree(href))) == 2, href
 
 
+def test_broken_href():
+    href = etree.HTML("""
+        <a href>
+    """)
+    assert len(list(find_links_tree(href))) == 0, href
+
+
 def not_running_negatives():
     for sample in split_lines(SOCIAL_NEGATIVE):
         assert not matches_string(sample), (sample, )

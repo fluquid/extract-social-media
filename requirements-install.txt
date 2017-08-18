@@ -2,3 +2,4 @@
 lxml
 requests
 html_to_etree
+six

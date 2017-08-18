@@ -3,6 +3,8 @@
 from __future__ import unicode_literals
 import re
 
+import six
+
 __author__ = 'Johannes Ahlmann'
 __email__ = 'johannes@fluquid.com'
 __version__ = '0.2.0'
@@ -55,7 +57,9 @@ def find_links_tree(tree):
     """
     for link in tree.xpath('//*[@href or @data-href]'):
         href = link.get('href') or link.get('data-href')
-        if matches_string(href):
+        if (href and
+                isinstance(href, (six.string_types, six.text_type)) and
+                matches_string(href)):
             yield href
 
     for script in tree.xpath('//script[not(@src)]/text()'):
