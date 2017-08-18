@@ -4,6 +4,11 @@ History
 
 .. comment:: bumpversion marker
 
+0.3.0 (2017-08-18)
+------------------
+
+* fixed exception when "href" is empty or non-string
+
 0.2.0 (2017-06-08)
 ------------------
 
