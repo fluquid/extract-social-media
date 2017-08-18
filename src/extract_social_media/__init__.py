@@ -7,7 +7,7 @@ import six
 
 __author__ = 'Johannes Ahlmann'
 __email__ = 'johannes@fluquid.com'
-__version__ = '0.3.0'
+__version__ = '0.4.0'
 
 
 # FIXME: a lot wrong with the below

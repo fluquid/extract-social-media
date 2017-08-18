@@ -4,6 +4,11 @@ History
 
 .. comment:: bumpversion marker
 
+0.4.0 (2017-08-18)
+------------------
+
+* naive blacklisting for photos, videos, search, tweets, etc.
+
 0.3.0 (2017-08-18)
 ------------------
 
