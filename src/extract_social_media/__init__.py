@@ -29,6 +29,27 @@ PATTERN = (
     r'%s(?:%s)(?:%s)?%s' %
     (PREFIX, '|'.join(SITES), '|'.join(BETWEEN), ACCOUNT))
 SOCIAL_REX = re.compile(PATTERN, flags=re.I)
+BLACKLIST_RE = re.compile(
+    """
+    sharer.php|
+    /photos/.*\d{6,}|
+    google.com/(?:ads/|
+                  analytics$|
+                  chrome$|
+                  intl/|
+                  maps/|
+                  policies/|
+                  search$
+               )|
+    /share\?|
+    /status/|
+    /hashtag/|
+    home\?status=|
+    twitter.com/intent/|
+    search\?|
+    vimeo.com/\d+$|
+    /watch\?""",
+    flags=re.VERBOSE)
 
 
 def _from_url(url):  # pragma: no cover
@@ -43,7 +64,7 @@ def _from_url(url):  # pragma: no cover
 
 def matches_string(string):
     """ check if a given string matches known social media url patterns """
-    return SOCIAL_REX.match(string)
+    return SOCIAL_REX.match(string) and not BLACKLIST_RE.search(string)
 
 
 def find_links_tree(tree):
@@ -64,9 +85,11 @@ def find_links_tree(tree):
 
     for script in tree.xpath('//script[not(@src)]/text()'):
         for match in SOCIAL_REX.findall(script):
-            yield match
+            if not BLACKLIST_RE.search(match):
+                yield match
 
     for script in tree.xpath('//meta[contains(@name, "twitter:")]'):
         name = script.get('name')
         if name in ('twitter:site', 'twitter:creator'):
+            # FIXME: track fact that source is twitter
             yield script.get('content')

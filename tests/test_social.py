@@ -108,7 +108,6 @@ https://vimeo.com/kadence
 https://eg.linkedin.com/in/sayed-gharib-51b05133?trk=pub-pbmap
 https://www.linkedin.com/company/dichter-&-neira-research-network?trk=fc_badge
 https://dk.linkedin.com/in/carolinehorten
-https://www.youtube.com/watch?v=hW9-jsAOBiA
 https://plus.google.com/u/0/111494755084642562984/posts
 http://www.slideshare.net/haystackinternational
 https://www.facebook.com/pages/Robas-Research/357181737690559
