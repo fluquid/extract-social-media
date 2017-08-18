@@ -41,12 +41,16 @@ BLACKLIST_RE = re.compile(
                   policies/|
                   search$
                )|
+    instagram.com/p/|
     /share\?|
     /status/|
     /hashtag/|
     home\?status=|
     twitter.com/intent/|
+    twitter.com/share|
     search\?|
+    /search/|
+    pinterest.com/pin/create/|
     vimeo.com/\d+$|
     /watch\?""",
     flags=re.VERBOSE)
