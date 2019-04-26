@@ -1,5 +1,4 @@
-# -*- coding: utf-8 -*-
-
+"""Main part to extract social media links from websites."""
 from __future__ import unicode_literals
 import re
 
@@ -14,20 +13,33 @@ __version__ = '0.4.0'
 # - too permissive
 # - likely too slow
 PREFIX = r'https?://(?:www\.)?'
-SITES = ['twitter.com/', 'youtube.com/',
-         '(?:[a-z]{2}\.)?linkedin.com/(?:company/|in/|pub/)',
-         'github.com/', '(?:[a-z]{2}-[a-z]{2}\.)?facebook.com/', 'fb.co',
-         'plus\.google.com/', 'pinterest.com/', 'instagram.com/',
-         'snapchat.com/', 'flipboard.com/', 'flickr.com',
-         'google.com/+', 'weibo.com/', 'periscope.tv/',
-         'telegram.me/', 'soundcloud.com', 'feeds.feedburner.com',
-         'vimeo.com', 'slideshare.net', 'vkontakte.ru']
-BETWEEN = ['user/', 'add/', 'pages/', '#!/', 'photos/',
-           'u/0/']
+SITES = [
+    '(?:[a-z]{2}-[a-z]{2}\.)?facebook.com/',
+    '(?:[a-z]{2}\.)?linkedin.com/(?:company/|in/|pub/)',
+    'fb.co',
+    'feeds.feedburner.com',
+    'flickr.com',
+    'flipboard.com/',
+    'github.com/',
+    'google.com/+',
+    'instagram.com/',
+    'periscope.tv/',
+    'pinterest.com/',
+    'plus\.google.com/',
+    'slideshare.net',
+    'snapchat.com/',
+    'soundcloud.com',
+    'telegram.me/',
+    'twitter.com/',
+    'vimeo.com',
+    'vkontakte.ru',
+    'weibo.com/',
+    'youtube.com/',
+]
+BETWEEN = ['user/', 'add/', 'pages/', '#!/', 'photos/', 'u/0/']
 ACCOUNT = r'[\w\+_@\.\-/%]+'
-PATTERN = (
-    r'%s(?:%s)(?:%s)?%s' %
-    (PREFIX, '|'.join(SITES), '|'.join(BETWEEN), ACCOUNT))
+PATTERN = (r'%s(?:%s)(?:%s)?%s' % (
+    PREFIX, '|'.join(SITES), '|'.join(BETWEEN), ACCOUNT))
 SOCIAL_REX = re.compile(PATTERN, flags=re.I)
 BLACKLIST_RE = re.compile(
     """
@@ -56,24 +68,23 @@ BLACKLIST_RE = re.compile(
     flags=re.VERBOSE)
 
 
-def _from_url(url):  # pragma: no cover
-    """ get list of social media links/handles given a url """
+def get_from_url(url):  # pragma: no cover
+    """Get list of social media links/handles given an URL."""
     import requests
     from html_to_etree import parse_html_bytes
     res = requests.get(url)
     tree = parse_html_bytes(res.content, res.headers.get('content-type'))
 
-    return set(find_links_tree(tree))
+    return list(find_links_tree(tree))
 
 
 def matches_string(string):
-    """ check if a given string matches known social media url patterns """
+    """Check if a given string matches known social media URL patterns."""
     return SOCIAL_REX.match(string) and not BLACKLIST_RE.search(string)
 
 
 def find_links_tree(tree):
-    """
-    find social media links/handles given an lxml etree.
+    """Find social media links/handles given a lxml etree.
 
     TODO:
     - `<fb:like href="http://www.facebook.com/elDiarioEs"`
