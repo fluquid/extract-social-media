@@ -60,7 +60,7 @@ def _from_url(url):  # pragma: no cover
     """ get list of social media links/handles given a url """
     import requests
     from html_to_etree import parse_html_bytes
-    res = requests.get(url)
+    res = requests.get(url, timeout=10)
     tree = parse_html_bytes(res.content, res.headers.get('content-type'))
 
     return set(find_links_tree(tree))
