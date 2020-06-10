@@ -46,7 +46,9 @@ BLACKLIST_RE = re.compile(
     /status/|
     /hashtag/|
     home\?status=|
-    twitter.com/intent/|
+    twitter.com/intent/tweet|
+    twitter.com/intent/retweet|
+    twitter.com/intent/like|
     twitter.com/share|
     search\?|
     /search/|
